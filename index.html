@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高考结果查询</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/jindutiao.css">
+</head>
+<body>
+    <div class="cont">
+        <h1>高考结果预测</h1>
+        <div class="form-box">
+            <div class="line">
+                <label for="uname">请输入你的名字：</label>
+                <input type="text" class="inputBox" id="uname">
+            </div>
+            <div class="line">
+                <label>请输入你的志愿院校：</label>
+                <input type="text" class="inputBox">
+            </div>
+            <div class="line">
+                <input type="button" value="开始查询" class="btnBox">
+            </div>
+        </div>
+        <div class="progress">
+            <div class="bar shadow bars"></div>
+        </div>
+        <div class="output">
+            <h2>lu取通知书</h2>
+            <p class="uname"><span>梦梦</span>同学：</p>
+            <p class="school">恭喜你，成功你被<span>清华大学</span>成功lu取！</p>
+            <p class="congradulate">祝贺你，心想事成，金榜题名！</p>
+        </div>
+        <audio muted loop>
+            <source src="proud-youth.mp3" type="audio/mpeg">
+        </audio>
+        <canvas id="canvas" style="display: none;position: fixed;left:0; right:0;top:0; bottom:0;"></canvas>
+    </div>
+    <script src="js/fireworks.js"></script>
+    <script>
+        let headerBox = document.querySelector(".cont>h1");
+        let inputBoxs = document.querySelectorAll(".inputBox");
+        let btnBox = document.querySelector(".btnBox");
+        let output = document.querySelector(".output");
+        let uname = document.querySelector(".uname span");
+        let school = document.querySelector(".school span");
+        let audio = document.querySelector('audio')
+        // 进度条
+        const progress = document.querySelector('.progress');
+        const bar = document.querySelector('.progress .bar');
+        bar.style.width = '90px'
+
+        inputBoxs[0].onclick = function () {
+            audio.muted = false
+            audio.play()
+        }
+
+        btnBox.onclick = function () {
+            if(!inputBoxs[0].value || !inputBoxs[1].value) {
+                alert('我不知道你是谁，我无法预测')
+                return
+            }
+            progress.style.opacity = 1
+            bar.style.transition = `width 2.5s`;
+            bar.style.width = '100%';
+            setTimeout(() => {
+                progress.style.display = 'none'
+                btnBox.disabled = false
+                output.style.display = 'block'
+                uname.innerText = inputBoxs[0].value
+                school.innerText = inputBoxs[1].value
+                audio.currentTime = 46
+                document.body.style.background = '#881c11'
+                canvas.style.display = 'block'
+                headerBox.style.color = '#fff'
+
+            }, 2500)
+        }
+
+    </script>
+</body>
+</html>
